@@ -2,3 +2,10 @@ mini_cms_frontend_home:
     path: /
     defaults: 
         _controller: MiniCMSBundle:Frontend:home
+        
+mini_cms_frontend_view:
+    path: /page/{title}
+    defaults:
+        _controller: MiniCMSBundle:Frontend:view
+    requirements:
+        title: \w+
