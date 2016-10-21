@@ -1,0 +1,23 @@
+{
+	"authors" : [{
+			"name" : "Tanguy Reviller",
+			"email" : "tanguy.reviller@gmail.com",
+			"homepage" : "https://github.com/treviller/MiniCMS"
+		}
+	],
+	"support" : {
+		"email" : "tanguy.reviller@gmail.com"
+	},
+	"name" : "treviller/mini-cms-bundle",
+	"type" : "symfony-bundle",
+	"homepage" : "https://github.com/treviller/MiniCMS",
+	"license" : "MIT",
+	"require" : {
+		"stof/doctrine-extensions-bundle" : "~1.2",
+		"friendsofsymfony/user-bundle" : "dev-master@dev"
+	},
+	"description" : "Provides a simple CMS-like system",
+	"keywords" : [
+		"CMS"
+	]
+}

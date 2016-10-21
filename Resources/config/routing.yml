@@ -32,3 +32,5 @@ mini_cms_backend_sethome:
     path: /admin/sethome/{slug}
     defaults:
         _controller: MiniCMSBundle:Backend:sethome
+        
+        

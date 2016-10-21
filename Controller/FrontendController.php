@@ -2,36 +2,49 @@
 namespace MiniCMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/** 
+ * Controller for frontend part of the bundle
+ * 
+ * @author Tanguy Reviller
+ */
 class FrontendController extends Controller
 {
 	/**
-	 * 'frontend_home' '/'
+	 * url'/'
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function homeAction()
 	{
-		return $this->render('MiniCMSBundle:Frontend:home.html.twig');
+		$page = $this->getDoctrine()->getManager()->getRepository('MiniCMSBundle:Page')->findOneBy(array('homepage' => true));
+		
+		if($page === null)
+			return $this->render('MiniCMSBundle:Frontend:home.html.twig');
+		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));
 	}
-
-	/**
-	 * 'frontend_view', '/page/{title}'
-	 * @param string $title
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-	 */
+	
+	 /**
+	  * url'/page/{slug}'
+	  * 
+	  * @param string $slug
+	  * @return \Symfony\Component\HttpFoundation\Response
+	  * @throws NotFoundHttpException
+	  */
 	public function viewAction($slug)
 	{
 		$page = null;
-
+		
 		$em = $this->getDoctrine()->getManager();
-
+		
 		$page = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('slug' => $slug));
-
+		
 		if($page === null)
 		{
-			return $this->redirectToRoute('frontend_home');
+			throw new NotFoundHttpException('Page not found !');
 		}
-
+		
 		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));
 	}
 }
