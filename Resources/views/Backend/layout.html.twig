@@ -1,0 +1,10 @@
+{% extends 'MiniCMSBundle::layout.html.twig' %}
+
+{% block title %}
+	Administration - {{ parent() }}
+{% endblock %}
+	
+{% block navigation %}
+	<li><a href="{{ path('backend_home') }}">Admin Home</a></li>
+	<li><a href="{{ path('backend_add') }}">Add page</a></li>
+{% endblock %}

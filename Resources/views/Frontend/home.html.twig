@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8"/>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-		<title>Accueil du mini-CMS</title>
-	</head>
-	<body style="padding-top: 100px;">
-		<div class="container">
-		
-			<nav class="navbar navbar-inverse navbar-fixed-top">
-				<ul class="nav navbar-nav">
-					<li><a href="#">Lien 1</a></li>
-					<li><a href="#">Lien 2</a></li>
-				</ul>
-			</nav>
-			
+{% extends 'MiniCMSBundle::layout.html.twig' %}
+
+{% block title %}
+	Accueil - {{ parent() }}
+{% endblock %}
+	
+{% block navigation %}
+	<li><a href="#">Lien 1</a></li>
+	<li><a href="#">Lien 2</a></li>
+{% endblock %}
+
+{% block body %}			
 			<header class="jumbotron">
 				<h1>Bienvenue sur la page d'exemple de ce mini-CMS !</h1>
 			</header>
@@ -29,12 +24,4 @@
 					Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
 				</p>
 			</section>
-		
-			<hr>
-			
-			<footer class="footer">
-				<p>Ce mini-CMS a été produit dans le cadre du cours <a href="https://openclassrooms.com">OpenClassroom</a></p>
-			</footer>
-		</div>
-	</body>
-</html>
+{% endblock %}
