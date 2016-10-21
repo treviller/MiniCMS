@@ -14,9 +14,8 @@ Requirements
 ============
 
 - Symfony 3.x
-- [FOSUserBundle](https://packagist.org/packages/friendsofsymfony/user-bundle) dev-master
+- [FOSUserBundle](https://packagist.org/packages/friendsofsymfony/user-bundle) 2.0.x-dev
 - [Doctrine-extensions-bundle](https://packagist.org/packages/stof/doctrine-extensions-bundle) 1.2.x
-- [stfalcon/tinymce-bundle](https://packagist.org/packages/stfalcon/tinymce-bundle) dev-master
 
 Installation
 ============
