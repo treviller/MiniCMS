@@ -5,7 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Page
+ * This class represents page entities in database
+ *
+ * @author Tanguy Reviller
  *
  * @ORM\Table(name="pages")
  * @ORM\Entity(repositoryClass="MiniCMSBundle\Repository\PageRepository")
@@ -43,6 +45,73 @@ class Page
 	 */
 	private $slug;
 
+	/**
+	 * @var \DateTime
+	 * @ORM\Column(name="dateCreation", type="datetime")
+	 */
+	private $dateCreation;
+
+	/**
+	 * @var \DateTime
+	 * @ORM\Column(name="dateUpdate", type="datetime")
+	 */
+	private $dateUpdate;
+
+	/**
+	 * @var boolean
+	 * @ORM\Column(name="homepage", type="boolean")
+	 */
+	private $homepage;
+
+
+	/**
+	 *
+	 * @return boolean
+	 */
+	public function getHomepage()
+	{
+		return $this->homepage;
+	}
+
+	/**
+	 * @param boolean $homepage
+	 */
+	public function setHomepage($homepage)
+	{
+		$this->homepage = $homepage;
+	}
+
+	/**
+	 * @return DateTime
+	 */
+	public function getDateUpdate()
+	{
+		return $this->dateUpdate;
+	}
+
+	/**
+	 * @param Datetime $dateModif
+	 */
+	public function setDateUpdate($dateUpdate)
+	{
+		$this->dateModif = $dateUpdate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getDateCreation()
+	{
+		return $this->dateCreation;
+	}
+
+	/**
+	 * @param \DateTime $dateCreation
+	 */
+	public function setDateCreation($dateCreation)
+	{
+		$this->dateCreation = $dateCreation;
+	}
 
 	/**
 	 * Get id

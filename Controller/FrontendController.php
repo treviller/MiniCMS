@@ -19,15 +19,19 @@ class FrontendController extends Controller
 	 * @param string $title
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function viewAction($title)
+	public function viewAction($slug)
 	{
-		$view = null;
+		$page = null;
 
-		if($view === null)
+		$em = $this->getDoctrine()->getManager();
+
+		$page = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('slug' => $slug));
+
+		if($page === null)
 		{
 			return $this->redirectToRoute('frontend_home');
 		}
 
-		return $this->render($view);
+		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));
 	}
 }

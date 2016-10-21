@@ -4,11 +4,9 @@ mini_cms_frontend_home:
         _controller: MiniCMSBundle:Frontend:home
 
 mini_cms_frontend_view:
-    path: /page/{title}
+    path: /page/{slug}
     defaults:
         _controller: MiniCMSBundle:Frontend:view
-    requirements:
-        title: \w+
         
 mini_cms_backend_home:
     path: /admin/home
@@ -20,16 +18,17 @@ mini_cms_backend_add:
     defaults:
         _controller: MiniCMSBundle:Backend:add
 
-mini_cms_backend_update:
-    path: /admin/update/{title}
+mini_cms_backend_edit:
+    path: /admin/edit/{slug}
     defaults:
-        _controller: MiniCMSBundle:Backend:update
-    requirements:
-        title: \w+
+        _controller: MiniCMSBundle:Backend:edit
     
 mini_cms_backend_delete:
-    path: /admin/delete/{title}
+    path: /admin/delete/{slug}
     defaults:
         _controller: MiniCMSBundle:Backend:delete
-    requirements:
-        title: \w+
+                
+mini_cms_backend_sethome:
+    path: /admin/sethome/{slug}
+    defaults:
+        _controller: MiniCMSBundle:Backend:sethome

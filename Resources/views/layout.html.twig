@@ -16,7 +16,7 @@
                        		<span class="glyphicon glyphicon-user"></span> Welcome, {{ app.user.username }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         {% block navlink %}
-                        	<li><a href="{{ path('backend_home') }}">Administration</a></li>
+                        	<li><a href="{{ path('mini_cms_backend_home') }}">Administration</a></li>
                         {% endblock navlink %}
                         	<li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
                         </ul>
@@ -58,9 +58,11 @@
 				<p>This mini-CMS was created as part of <a href="https://openclassrooms.com">OpenClassroom</a> course's</p>
 			</footer>
 		</div>
+		{% block script %}
 		<!-- jQuery -->
-    	<script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
+    	<script src="{{ app.request.basepath }}/bundles/minicms/jquery/jquery.min.js"></script>
    		<!-- JavaScript Boostrap plugin -->
-    	<script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>	
+    	<script src="{{ app.request.basepath }}/bundles/minicms/bootstrap/js/bootstrap.min.js"></script>
+    	{% endblock %}	
 	</body>
 </html>

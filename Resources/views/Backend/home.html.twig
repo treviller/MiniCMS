@@ -4,6 +4,33 @@
 	Home - {{ parent() }}
 {% endblock %}
 
-{% block body %}			
-			
+{% block body %}	
+	{{ parent() }}
+	<h1>List of all pages :</h1>
+	<ul class="list-group">
+		{% for page in pages %}
+		<li class="list-group-item">
+			<a href="{{ path('mini_cms_backend_edit', {'slug': page.slug}) }}">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+		        {{ page.title }}
+		        {% if page.homepage %}
+		        (home)
+		        {% endif %}
+			</a>
+			created on {{ page.dateCreation|date('m/d/Y h:i')}}, last update : {{ page.dateUpdate|date('m/d/Y h:i') }}
+		
+		    {% if page.homepage %}
+			<div class="btn btn-default pull-right disabled">
+				<span class="glyphicon glyphicon-home"></span>
+				Set homepage
+			</div>
+			{% else %}
+			<a href="{{ path('mini_cms_backend_sethome', {'slug': page.slug}) }}" class="btn-default pull-right">
+				<span class="glyphicon glyphicon-home"></span>
+				Set homepage
+			</a>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
 {% endblock %}

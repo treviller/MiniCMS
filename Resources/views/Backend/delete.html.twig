@@ -3,3 +3,16 @@
 {% block title %}
 	Delete page - {{ parent() }}
 {% endblock %}
+
+{% block body %}
+	<form method="post" action="{{ path('mini_cms_backend_delete', {'slug': page.slug}) }}">
+		<p>
+			Are you sure you want to delete the page "{{ page.title }}" ?
+		</p>
+		<a href="{{ path('mini_cms_backend_edit', {'slug' :  page.slug}) }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+			Return
+		</a>
+		<input type="submit" value="Delete" class="btn btn-danger"/>
+	</form>
+{% endblock %}

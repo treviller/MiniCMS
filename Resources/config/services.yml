@@ -1,0 +1,9 @@
+
+services:
+    minicms.tinymce_impl:
+        class: MiniCMSBundle\Twig\TinymceImpl
+        arguments:
+         - "@service_container"
+        tags:
+         - { name: twig.extension }
+         
