@@ -18,11 +18,11 @@ class BackendController extends Controller
 
 	public function updateAction()
 	{
-
+		return $this->render('MiniCMSBundle:Backend:edit.html.twig');
 	}
 
 	public function deleteAction()
 	{
-
+		return $this->render('MiniCMSBundle:Backend:delete.html.twig');
 	}
 }
