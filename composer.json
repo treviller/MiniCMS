@@ -19,5 +19,6 @@
 	"description" : "Provides a simple CMS-like system",
 	"keywords" : [
 		"CMS"
-	]
+	],
+	"minimum-stability" : "dev"
 }
