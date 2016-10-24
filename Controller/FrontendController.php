@@ -26,19 +26,24 @@ class FrontendController extends Controller
 	}
 	
 	 /**
-	  * url'/page/{slug}'
+	  * url'/{category}/{slug}'
 	  * 
 	  * @param string $slug
 	  * @return \Symfony\Component\HttpFoundation\Response
 	  * @throws NotFoundHttpException
 	  */
-	public function viewAction($slug)
+	public function viewAction($category, $slug)
 	{
 		$page = null;
 		
 		$em = $this->getDoctrine()->getManager();
 		
-		$page = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('slug' => $slug));
+		if($category == "uncategorized")
+		{
+			$category = null;
+		}
+		
+		$page = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('category' => $category, 'slug' => $slug));
 		
 		if($page === null)
 		{

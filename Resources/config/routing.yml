@@ -2,12 +2,12 @@ mini_cms_frontend_home:
     path: /
     defaults: 
         _controller: MiniCMSBundle:Frontend:home
-
+        
 mini_cms_frontend_view:
-    path: /page/{slug}
+    path: /page/{category}/{slug}
     defaults:
         _controller: MiniCMSBundle:Frontend:view
-        
+             
 mini_cms_backend_home:
     path: /admin/home
     defaults:
@@ -33,4 +33,7 @@ mini_cms_backend_sethome:
     defaults:
         _controller: MiniCMSBundle:Backend:sethome
         
-        
+mini_cms_backend_addCategory:
+    path: /admin/addCat
+    defaults:
+        _controller: MiniCMSBundle:Backend:addCategory

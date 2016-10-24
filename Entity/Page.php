@@ -63,6 +63,28 @@ class Page
 	 */
 	private $homepage;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="MiniCMSBundle\Entity\Category")
+	 */
+	private $category;
+	
+	/**
+	 * 
+	 * @param \MiniCMSBundle\Entity\Category $category
+	 */
+	public function setCategory(Category $category)
+	{
+		$this->category = $category;
+	}
+	
+	/**
+	 * 
+	 * @return \MiniCMSBundle\Entity\Category
+	 */
+	public function getCategory()
+	{
+		return $this->category;
+	}
 
 	/**
 	 *

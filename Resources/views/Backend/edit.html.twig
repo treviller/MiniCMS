@@ -14,6 +14,10 @@
 	    
 	    {{ form_row(form.title) }}
 	    
+	    {{ form_row(form.category) }}
+	    
+	    <a href="{{ path('mini_cms_backend_addCategory') }}">Need some other category ? Add it !</a>
+	    
 	    <div class="form-group">
 	    	{{ form_label(form.content, null, {'attr': {'class': 'control-label'}}) }}
 	    	

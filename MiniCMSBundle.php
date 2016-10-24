@@ -13,9 +13,4 @@ class MiniCMSBundle extends Bundle
 	{
 		return 'FOSUserBundle';
 	}
-	
-	public function getName()
-	{
-		return 'MiniCMSBundle';
-	}
 }

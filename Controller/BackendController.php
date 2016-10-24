@@ -1,11 +1,13 @@
 <?php
 namespace MiniCMSBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MiniCMSBundle\Entity\Page;
+use MiniCMSBundle\Form\Type\CategoryType;
 use MiniCMSBundle\Form\Type\PageType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use MiniCMSBundle\Entity\Category;
 
 /**
  * Controller for backend part of the bundle
@@ -48,7 +50,7 @@ class BackendController extends Controller
 			$em->persist($page);
 			$em->flush();
 			
-			$request->getSession()->getFlashBag()->add('info', 'Page added !');
+			$request->getSession()->getFlashBag()->add('info', 'Page successfully added !');
 			return $this->redirectToRoute('mini_cms_backend_home');
 		}
 		
@@ -63,7 +65,7 @@ class BackendController extends Controller
 	 * @throws NotFoundHttpException
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function updateAction($slug, Request $request)
+	public function editAction($slug, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		
@@ -80,11 +82,11 @@ class BackendController extends Controller
 			$em->persist($page);
 			$em->flush();
 				
-			$request->getSession()->getFlashBag()->add('info', 'Page edited !');
+			$request->getSession()->getFlashBag()->add('info', 'Page successfully edited !');
 			return $this->redirectToRoute('mini_cms_backend_home');
 		}
 		
-		return $this->render('MiniCMSBundle:Backend:update.html.twig', array('page' => $page, 'form' => $form->createView()));
+		return $this->render('MiniCMSBundle:Backend:edit.html.twig', array('page' => $page, 'form' => $form->createView()));
 	}
 	
 	/**
@@ -145,5 +147,30 @@ class BackendController extends Controller
 		$em->flush();
 		
 		return $this->redirectToRoute('mini_cms_backend_home');
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 */
+	public function addCategoryAction(Request $request)
+	{
+		$category = new Category();
+		
+		$form = $this->get('form.factory')->create(CategoryType::class, $category);
+		
+		if($request->isMethod('post') && $form->handleRequest($request)->isValid())
+		{
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($category);
+			$em->flush();
+			
+			$request->getSession()->getFlashBag()->add('info', 'Category successfully added !');
+			
+			return $this->redirectToRoute('mini_cms_backend_home');
+		}
+		
+		return $this->render('MiniCMSBundle:Backend:addCategory.html.twig', array('form' => $form->createView()));
 	}
 }

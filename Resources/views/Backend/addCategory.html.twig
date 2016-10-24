@@ -1,0 +1,13 @@
+{% extends 'MiniCMSBundle:Backend:layout.html.twig' %}
+
+{% block title %}
+	Add a category
+{% endblock %}
+
+{% block body %}
+		{{ parent() }}
+		<h1>Add a category</h1>
+		<div class="well">
+		    {{ form(form) }}
+		</div>
+{% endblock %}
