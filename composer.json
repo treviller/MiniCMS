@@ -14,11 +14,11 @@
 	"license" : "MIT",
 	"require" : {
 		"stof/doctrine-extensions-bundle" : "~1.2",
-		"friendsofsymfony/user-bundle" : "dev-master as 2.0.x-dev"
+		"friendsofsymfony/user-bundle" : "dev-master@stable"
 	},
 	"description" : "Provides a simple CMS-like system",
 	"keywords" : [
 		"CMS"
 	],
-	"minimum-stability" : "dev"
+	"minimum-stability" : "stable"
 }
