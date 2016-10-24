@@ -3,15 +3,33 @@ namespace MiniCMSBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * This class provides a Tinymce implementation for a use in Twig
+ * 
+ * @author Tanguy Reviller
+ *
+ */
 class TinymceImpl extends \Twig_Extension
 {
+	/**
+	 * 
+	 * @var Symfony\Component\DependencyInjection\ContainerInterface
+	 */
 	private $container;
 	
+	/**
+	 * @param ContainerInterface $container
+	 */
 	public function __construct(ContainerInterface $container)
 	{
 		$this->container = $container;
 	}
 
+	/**
+	 * Twig function
+	 * 
+	 * @return string
+	 */
 	public function tinymceInit()
 	{
 		$globals = $this->container->get('twig')->getGlobals();
@@ -34,6 +52,11 @@ class TinymceImpl extends \Twig_Extension
 		return $content;
 	}
 
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see Twig_Extension::getFunctions()
+	 */
 	public function getFunctions()
 	{
 		return array(new \Twig_SimpleFunction('tinymceInit', array($this, 'tinymceInit'), array('is_safe' => array('html'))));

@@ -9,6 +9,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+
+/**
+ * This class provides form scheme to add page entity in database
+ *
+ * @author Tanguy Reviller
+ */
 class PageType extends AbstractType
 {
 	/**
