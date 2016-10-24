@@ -27,13 +27,13 @@ mini_cms_backend_delete:
     path: /admin/delete/{slug}
     defaults:
         _controller: MiniCMSBundle:Backend:delete
-                
-mini_cms_backend_sethome:
-    path: /admin/sethome/{slug}
-    defaults:
-        _controller: MiniCMSBundle:Backend:sethome
         
 mini_cms_backend_addCategory:
     path: /admin/addCat
     defaults:
         _controller: MiniCMSBundle:Backend:addCategory
+        
+fos_user_profile_show:
+    path: /
+    defaults:
+        _controller: MiniCMSBundle:Frontend:home

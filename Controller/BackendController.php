@@ -44,9 +44,16 @@ class BackendController extends Controller
 		
 		if($request->isMethod("post") && $form->handleRequest($request)->isValid())
 		{
+			$em = $this->getDoctrine()->getManager();
+			
+			if($page->getHomepage() == true)
+			{
+				$this->checkHomepage($em);
+			}
+			
 			$page->setDateCreation(new \Datetime());
 			$page->setDateUpdate(new \Datetime());
-			$em = $this->getDoctrine()->getManager();
+			
 			$em->persist($page);
 			$em->flush();
 			
@@ -78,6 +85,11 @@ class BackendController extends Controller
 		
 		if($request->isMethod("post") && $form->handleRequest($request)->isValid())
 		{
+			if($page->getHomepage() == true)
+			{
+				$this->checkHomepage($em);
+			}
+			
 			$page->setDateUpdate(new \Datetime());	
 			$em->persist($page);
 			$em->flush();
@@ -119,37 +131,6 @@ class BackendController extends Controller
 	}
 	
 	/**
-	 * url '/admin/setHome/{slug}'
-	 * 
-	 * @param string $slug
-	 * @throws NotFoundHttpException
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function sethomeAction($slug)
-	{
-		$em = $this->getDoctrine()->getManager();
-		$repository = $em->getRepository('MiniCMSBundle:Page');
-		
-		$pageHome = $repository->findOneBy(array('homepage' => true));
-		$page = $repository->findOneBy(array('slug' => $slug));
-		
-		if($page === null)
-			throw new NotFoundHttpException('Page not found !');
-		
-		if($pageHome !== null)
-		{
-			$pageHome->setHomepage(false);
-			$em->persist($pageHome);
-		}
-		
-		$page->setHomepage(true);
-		$em->persist($page);
-		$em->flush();
-		
-		return $this->redirectToRoute('mini_cms_backend_home');
-	}
-	
-	/**
 	 * 
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -172,5 +153,16 @@ class BackendController extends Controller
 		}
 		
 		return $this->render('MiniCMSBundle:Backend:addCategory.html.twig', array('form' => $form->createView()));
+	}
+	
+	public function checkHomepage($em)
+	{
+		$pageHome = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('homepage' => true));
+		
+		if($pageHome !== null)
+		{
+			$pageHome->setHomepage(false);
+			$em->persist($pageHome);
+		}
 	}
 }

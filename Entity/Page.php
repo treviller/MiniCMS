@@ -59,14 +59,35 @@ class Page
 
 	/**
 	 * @var boolean
-	 * @ORM\Column(name="homepage", type="boolean")
+	 * @ORM\Column(name="homepage", type="boolean", options={"default"=false})
 	 */
 	private $homepage;
 
 	/**
+	 * @var MiniCMSBundle\Entity\Category
 	 * @ORM\ManyToOne(targetEntity="MiniCMSBundle\Entity\Category")
 	 */
 	private $category;
+	
+	/**
+	 * @var int
+	 * @ORM\Column(name="access", type="integer", options={"default"=0})
+	 */
+	private $access;
+	
+	const ACCESS_USER = 0;
+	const ACCESS_MEMBER = 1;
+	const ACCESS_ADMIN = 2;
+	
+	public function setAccess($access)
+	{
+		$this->access = $access;
+	}
+	
+	public function getAccess()
+	{
+		return $this->access;
+	}
 	
 	/**
 	 * 
@@ -116,7 +137,7 @@ class Page
 	 */
 	public function setDateUpdate($dateUpdate)
 	{
-		$this->dateModif = $dateUpdate;
+		$this->dateUpdate = $dateUpdate;
 	}
 
 	/**

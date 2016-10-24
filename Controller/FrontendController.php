@@ -3,6 +3,8 @@ namespace MiniCMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use MiniCMSBundle\Entity\Page;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /** 
  * Controller for frontend part of the bundle
@@ -38,18 +40,24 @@ class FrontendController extends Controller
 		
 		$em = $this->getDoctrine()->getManager();
 		
-		if($category == "uncategorized")
-		{
-			$category = null;
-		}
-		
-		$page = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('category' => $category, 'slug' => $slug));
+		$page = $em->getRepository('MiniCMSBundle:Page')->findPageByCategory($category, $slug);
 		
 		if($page === null)
 		{
 			throw new NotFoundHttpException('Page not found !');
 		}
-		
+			
+		switch($page->getAccess())
+		{
+			case Page::ACCESS_ADMIN:
+				if(!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+					throw new AccessDeniedException('Access reserved.');
+			break;
+			case Page::ACCESS_MEMBER:
+				if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+					return $this->redirectToRoute('fos_user_security_login');
+			break;
+		}
 		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));
 	}
 }

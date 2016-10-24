@@ -14,7 +14,7 @@ Requirements
 ============
 
 - Symfony 3.x
-- [FOSUserBundle](https://packagist.org/packages/friendsofsymfony/user-bundle) 2.0.x-dev
+- [FOSUserBundle](https://packagist.org/packages/friendsofsymfony/user-bundle) dev-master
 - [Doctrine-extensions-bundle](https://packagist.org/packages/stof/doctrine-extensions-bundle) 1.2.x
 
 Installation
@@ -95,7 +95,26 @@ stof_doctrine_extensions:
 
 ```
 
-Step 4: Configure database
+Step 4: Routing
+---------------
+
+You need to add some routes in the file "app/config/routing.yml" in your project:
+
+```yaml
+minicms:
+    resource: "@MiniCMSBundle/Resources/config/routing.yml"
+    prefix: /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+    
+```
+
+Step 5: Configure database
 --------------------------
 Create a database and edit "database_name" in the file "app/config/parameters.yml"
 
@@ -103,6 +122,23 @@ Use this command to create tables in this base :
 
 ```console
 $ php bin/console doctrine:schema:update --force
+```
+
+Step 6: Add an administrator
+----------------------------
+
+You have to create a user with admin role, to access backend functions of MiniCMSBundle.
+
+Use this command to create an user :
+
+```console
+$ php bin/console fos:user:create name mail password
+```
+
+And then grant it some access :
+
+```console
+$ php bin/console fos:user:promote name ROLE_ADMIN
 ```
 The MiniCMSBundle is now ready to use ! 
 
