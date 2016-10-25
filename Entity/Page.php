@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="pages")
  * @ORM\Entity(repositoryClass="MiniCMSBundle\Repository\PageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Page
 {
@@ -75,9 +76,25 @@ class Page
 	 */
 	private $access;
 	
-	const ACCESS_USER = 0;
+	const ACCESS_PUBLIC = 0;
 	const ACCESS_MEMBER = 1;
 	const ACCESS_ADMIN = 2;
+	
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function updateDateCreation()
+	{
+		$this->setDateCreation(new \Datetime());
+	}
+	
+	/**
+	 * @ORM\PreUpdate()
+	 */
+	public function updateDate()
+	{
+		$this->setDateUpdate(new \Datetime());
+	}
 	
 	public function setAccess($access)
 	{

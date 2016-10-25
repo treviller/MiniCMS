@@ -142,6 +142,11 @@ $ php bin/console fos:user:promote name ROLE_ADMIN
 ```
 The MiniCMSBundle is now ready to use ! 
 
+Configuration
+=============
+
+Some parameters can be configurated. See [config.rst]() file for more information.
+
 License
 =======
 

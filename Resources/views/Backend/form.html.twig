@@ -1,0 +1,48 @@
+{% extends 'MiniCMSBundle:Backend:layout.html.twig' %}
+
+
+{% block body %}
+	{{ parent() }}
+
+	<div class=well>
+	    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	    
+	    {{ form_errors(form) }}
+	    
+	    {{ form_row(form.title) }}
+	    
+	    {{ form_row(form.category) }}
+	    
+	    <a href="{{ path('mini_cms_backend_addCategory') }}">Need some other category ? Add it !</a>
+	    
+	     {{ form_row(form.access) }}
+	     
+	     {{ form_row(form.homepage) }}
+	    
+	    <div class="form-group">
+	    	{{ form_label(form.content, null, {'attr': {'class': 'control-label'}}) }}
+	    	
+	    	{{ form_errors(form.content) }}
+	    	
+	    	<div class="">
+	    		{{ form_widget(form.content, {'attr': {'class': 'form-control tinymce'}}) }}
+	    	</div>
+	    </div>
+	    
+	    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}	
+	    
+	    {% block form %}
+	    
+	    {% endblock form %}
+	
+	    {{ form_rest(form) }}
+		    
+        {{ form_end(form) }}
+	</div>
+{% endblock body %}
+
+{% block script %}
+	{{ tinymceInit() }}
+    {{ parent() }}
+{% endblock %}
+

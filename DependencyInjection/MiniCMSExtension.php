@@ -13,6 +13,13 @@ class MiniCMSExtension extends Extension
 		$configuration = new Configuration();
 
 		$config = $this->processConfiguration($configuration, $configs);
+		
+		if($config['default_access_level'] == 'admin')
+			$container->setParameter('default_access_level', 2);
+		elseif($config['default_access_level'] == 'member')
+			$container->setParameter('default_access_level', 1);
+		else
+			$container->setParameter('default_access_level', 0);
 
 		$loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 

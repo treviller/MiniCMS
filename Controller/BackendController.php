@@ -25,7 +25,7 @@ class BackendController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 		
-		$pages = $em->getRepository('MiniCMSBundle:Page')->findAll();
+		$pages = $em->getRepository('MiniCMSBundle:Page')->findPagesAndCategories();
 		
 		return $this->render('MiniCMSBundle:Backend:home.html.twig', array('pages' => $pages));
 	}
@@ -40,7 +40,7 @@ class BackendController extends Controller
 	{
 		$page = new Page();
 		
-		$form = $this->get('form.factory')->create(PageType::class, $page);
+		$form = $this->get('form.factory')->create(PageType::class, $page, array('access_level' => $this->container->getParameter('default_access_level')));
 		
 		if($request->isMethod("post") && $form->handleRequest($request)->isValid())
 		{
@@ -51,8 +51,10 @@ class BackendController extends Controller
 				$this->checkHomepage($em);
 			}
 			
-			$page->setDateCreation(new \Datetime());
-			$page->setDateUpdate(new \Datetime());
+			if($page->getAccess() === null)
+			{
+				$page->setAccess($this->container->getParameter('default_access_level'));
+			}
 			
 			$em->persist($page);
 			$em->flush();
@@ -81,7 +83,7 @@ class BackendController extends Controller
 		if($page === null)
 			throw new NotFoundHttpException('This page doesn\'t exist');
 		
-		$form = $this->get('form.factory')->create(PageType::class, $page);
+		$form = $this->get('form.factory')->create(PageType::class, $page, array('access_level' => $this->container->getParameter('default_access_level')));
 		
 		if($request->isMethod("post") && $form->handleRequest($request)->isValid())
 		{
@@ -89,8 +91,7 @@ class BackendController extends Controller
 			{
 				$this->checkHomepage($em);
 			}
-			
-			$page->setDateUpdate(new \Datetime());	
+				
 			$em->persist($page);
 			$em->flush();
 				

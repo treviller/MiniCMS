@@ -18,12 +18,17 @@ class Configuration implements ConfigurationInterface
 	public function getConfigTreeBuilder()
 	{
 		$treeBuilder = new TreeBuilder();
-		$rootNode = $treeBuilder->root('minicms');
+		$rootNode = $treeBuilder->root('mini_cms');
 
-		// Here you should define the parameters that are allowed to
-		// configure your bundle. See the documentation linked above for
-		// more information on that topic.
-
+		$rootNode
+			->children()
+				->enumNode('default_access_level')
+					->defaultValue('public')
+					->values(array('public', 'member', 'admin'))
+				->end()
+			->end()
+		;
+		
 		return $treeBuilder;
 	}
 }

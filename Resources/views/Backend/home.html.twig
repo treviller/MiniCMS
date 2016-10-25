@@ -18,6 +18,7 @@
 		        {% endif %}
 			</a>
 			created on {{ page.dateCreation|date('m/d/Y h:i')}}, last update : {{ page.dateUpdate|date('m/d/Y h:i') }}
+			in {{ page.category.name }}
 		</li>
 		{% endfor %}
 	</ul>

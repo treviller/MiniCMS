@@ -1,51 +1,18 @@
-{% extends 'MiniCMSBundle:Backend:layout.html.twig' %}
+{% extends 'MiniCMSBundle:Backend:form.html.twig' %}
 
 {% block title %}
 	Edit page - {{ parent() }}
 {% endblock %}
 
-{% block body %}
-	{{ parent() }}
-	<h1>Edition of "{{ page.title }}"</h1>
-	<div class=well>
-	    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-	    
-	    {{ form_errors(form) }}
-	    
-	    {{ form_row(form.title) }}
-	    
-	    {{ form_row(form.category) }}
-	    
-	    <a href="{{ path('mini_cms_backend_addCategory') }}">Need some other category ? Add it !</a>
-	    
-	    {{ form_row(form.access) }}
-	    
-	    {{ form_row(form.homepage) }}
-	    
-	    <div class="form-group">
-	    	{{ form_label(form.content, null, {'attr': {'class': 'control-label'}}) }}
-	    	
-	    	{{ form_errors(form.content) }}
-	    	
-	    	<div class="">
-	    		{{ form_widget(form.content, {'attr': {'class': 'form-control tinymce'}}) }}
-	    	</div>
-	    </div>
-	    
-	    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}	
-	    
+{% block form %}
 	    <a href="{{ path('mini_cms_backend_delete', {'slug': page.slug}) }}" class="btn btn-danger">
 	    	<i class="glyphicon glyphicon-trash"></i>
 	    	Delete
-	    </a>
-	    
-	    {{ form_rest(form) }}
-	    
-	    {{ form_end(form) }}
-	</div>
-{% endblock %}
+		</a>
+{% endblock form %}
 
-{% block script %}
-    {{ tinymceInit() }}
-    {{ parent() }}
+{% block body %}
+	<h1>Edition of "{{ page.title }}"</h1>
+	
+	{{ parent() }}	
 {% endblock %}

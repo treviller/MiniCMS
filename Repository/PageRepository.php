@@ -23,4 +23,16 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 		
 		return $query->getQuery()->getOneOrNullResult();
 	}
+	
+	public function findPagesAndCategories()
+	{
+		$query = $this->createQueryBuilder('a');
+		
+		$query
+			->leftJoin('a.category', 'cat')
+			->addSelect('cat')
+		;
+		
+		return $query->getQuery()->getArrayResult();
+	}
 }
