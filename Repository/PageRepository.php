@@ -17,7 +17,7 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 			->leftJoin('a.category', 'cat')
 			->addSelect('cat')
 			->where('a.slug = :slug')
-			->andWhere('cat.name = :cat')
+			->andWhere('cat.slug = :cat')
 			->setParameter(':slug', $slug)
 			->setParameter(':cat', $category);
 		

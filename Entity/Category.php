@@ -3,6 +3,7 @@
 namespace MiniCMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Category entity
@@ -24,10 +25,34 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @var string
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
 
+    /**
+     * 
+     * @return string
+     */
+    public function getSlug()
+    {
+    	return $this->slug;
+    }
+    
+    /**
+     * 
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+    	$this->slug = $slug;
+    }
 
     /**
      * Get id

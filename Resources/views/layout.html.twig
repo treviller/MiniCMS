@@ -16,7 +16,9 @@
                        		<span class="glyphicon glyphicon-user"></span> Welcome, {{ app.user.username }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         {% block navlink %}
+                        	{% if is_granted('ROLE_ADMIN') %}
                         	<li><a href="{{ path('mini_cms_backend_home') }}">Administration</a></li>
+                        	{% endif %}
                         {% endblock navlink %}
                         	<li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
                         </ul>
