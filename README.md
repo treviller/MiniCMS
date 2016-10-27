@@ -27,13 +27,9 @@ Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
 ```console
-$ composer require treviller/mini-cms-bundle "~1"
+$ composer require mini-cms/mini-cms-bundle "~1"
 ```
 
-Then, you needs to copy assets into your web folder:
-```console
-$ php bin/console assets:install
-```
 
 Step 2: Enable the Bundle
 -------------------------
@@ -59,7 +55,16 @@ class AppKernel extends Kernel
 }
 ```
 
-Step 3: Install StofDoctrineExtensionsBundle
+Step3: Install assets
+---------------------
+
+Then, you needs to copy assets into your web folder:
+
+```console
+$ php bin/console assets:install
+```
+
+Step 4: Install StofDoctrineExtensionsBundle
 --------------------------------------------
 
 First, you need to add this bundle to the list of registered bundles in 'AppKernel.php' in your project :
@@ -94,7 +99,7 @@ stof_doctrine_extensions:
 
 ```
 
-Step 4: Routing
+Step 5: Routing
 ---------------
 
 You need to add this route in the file "app/config/routing.yml" in your project:
@@ -106,7 +111,24 @@ minicms:
     
 ```
 
-Step 5: Security
+You need also to define the routes "login" and "logout" with your personal login and logout pages to let the bundle work.
+
+Example:
+
+```yaml
+login:
+    path: /login
+    defaults:
+        _controller: Bundle:Controller:login
+
+logout:
+    path: /logout
+    defaults:
+        _controller: Bundle:Controller:logout 
+    
+```
+
+Step 6: Security
 ----------------
 
 If you want to correctly enable logging, you just have to add these lines in "app/config/security.yml" :
@@ -118,7 +140,7 @@ If you want to correctly enable logging, you just have to add these lines in "ap
 
 All the rest of this file can be customizable as you want.
 
-Step 6: Configure database
+Step 7: Configure database
 --------------------------
 Create a database and edit "database_name" in the file "app/config/parameters.yml"
 
