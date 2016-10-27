@@ -7,8 +7,9 @@ Features include:
 
 - Backend functionalities
 - Secure access to the backend via logging
-- TinyMCE implementation for creating pages
-
+- TinyMCE implementation for page creation
+- Page versioning
+- Customizable access levels on different pages
 
 Requirements
 ============
@@ -53,8 +54,8 @@ class AppKernel extends Kernel
 }
 ```
 
-Step 3: Install Required Bundles
---------------------------------
+Step 3: Install StofDoctrineExtensionsBundle
+--------------------------------------------
 
 First, you need to add this bundle to the list of registered bundles in 'AppKernel.php' in your project :
 
@@ -91,7 +92,7 @@ stof_doctrine_extensions:
 Step 4: Routing
 ---------------
 
-You need to add some routes in the file "app/config/routing.yml" in your project:
+You need to add this route in the file "app/config/routing.yml" in your project:
 
 ```yaml
 minicms:
@@ -100,7 +101,19 @@ minicms:
     
 ```
 
-Step 5: Configure database
+Step 5: Security
+----------------
+
+If you want to correctly enable logging, you just have to add these lines in "app/config/security.yml" :
+
+```yaml
+    access_control:
+       - { path: ^/admin, roles: ROLE_ADMIN }
+```
+
+All the rest of this file can be customizable as you want.
+
+Step 6: Configure database
 --------------------------
 Create a database and edit "database_name" in the file "app/config/parameters.yml"
 

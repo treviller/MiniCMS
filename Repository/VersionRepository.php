@@ -10,6 +10,12 @@ namespace MiniCMSBundle\Repository;
  */
 class VersionRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+	 * Get all versions of a page
+	 * 
+	 * @param string $slug
+	 * @return array
+	 */
 	public function findBySlug($slug)
 	{
 		$query = $this->createQueryBuilder("a");
@@ -24,6 +30,12 @@ class VersionRepository extends \Doctrine\ORM\EntityRepository
 		return $query->getQuery()->getArrayResult();
 	}
 	
+	/**
+	 * Get a version with its page
+	 * 
+	 * @param int $id
+	 * @return mixed|NULL
+	 */
 	public function findOneByWithPage($id)
 	{
 		$query = $this->createQueryBuilder("v");

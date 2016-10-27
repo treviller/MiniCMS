@@ -6,8 +6,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;
 
+/**
+ * 
+ * @author Tanguy Reviller
+ * 
+ */
 class MiniCMSExtension extends Extension
 {
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \Symfony\Component\DependencyInjection\Extension\ExtensionInterface::load()
+	 */
 	public function load(array $configs, ContainerBuilder $container)
 	{
 		$configuration = new Configuration();

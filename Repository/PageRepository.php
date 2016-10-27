@@ -9,6 +9,13 @@ namespace MiniCMSBundle\Repository;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+	 * Get page with its category
+	 * 
+	 * @param string $category
+	 * @param string $slug
+	 * @return mixed|NULL
+	 */
 	public function findPageByCategory($category, $slug)
 	{
 		$query = $this->createQueryBuilder('a');
@@ -23,7 +30,12 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 		
 		return $query->getQuery()->getOneOrNullResult();
 	}
-	
+
+	/**
+	 * Get all pages with their categories
+	 * 
+	 * @return array
+	 */
 	public function findPagesAndCategories()
 	{
 		$query = $this->createQueryBuilder('a');

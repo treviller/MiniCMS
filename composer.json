@@ -13,8 +13,7 @@
 	"homepage" : "https://github.com/treviller/MiniCMS",
 	"license" : "MIT",
 	"require" : {
-		"stof/doctrine-extensions-bundle" : "~1.2",
-		"friendsofsymfony/user-bundle" : "dev-master@dev"
+		"stof/doctrine-extensions-bundle" : "~1.2"
 	},
 	"autoload" : {
 		"psr-4" : {

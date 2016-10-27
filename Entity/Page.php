@@ -83,7 +83,11 @@ class Page
 	 */
 	private $versions;
 	
-	
+	/**
+	 * Some possible access levels
+	 * 
+	 * @var integer
+	 */
 	const ACCESS_PUBLIC = 0;
 	const ACCESS_MEMBER = 1;
 	const ACCESS_ADMIN = 2;
@@ -94,6 +98,8 @@ class Page
 	}
 	
 	/**
+	 * Set dateCreation to now
+	 * 
 	 * @ORM\PrePersist()
 	 */
 	public function updateDateCreation()
@@ -102,6 +108,8 @@ class Page
 	}
 	
 	/**
+	 * Set dateUpdate to now
+	 * 
 	 * @ORM\PrePersist()
 	 * @ORM\PreUpdate()
 	 */
@@ -111,6 +119,8 @@ class Page
 	}
 	
 	/**
+	 * Save a version of this page
+	 * 
 	 * @ORM\PrePersist()
 	 */
 	public function updateVersion()
@@ -152,11 +162,19 @@ class Page
 		$this->versions[]= $version;
 	}
 	
+	/**
+	 * 
+	 * @param int $access
+	 */
 	public function setAccess($access)
 	{
 		$this->access = $access;
 	}
 	
+	/**
+	 * 
+	 * @return int
+	 */
 	public function getAccess()
 	{
 		return $this->access;

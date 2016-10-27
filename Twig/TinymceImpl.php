@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class TinymceImpl extends \Twig_Extension
 {
 	/**
-	 * 
 	 * @var Symfony\Component\DependencyInjection\ContainerInterface
 	 */
 	private $container;

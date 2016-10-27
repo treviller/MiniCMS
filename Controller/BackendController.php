@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use MiniCMSBundle\Entity\Category;
 use MiniCMSBundle\Entity\Version;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Controller for backend part of the bundle
@@ -137,6 +138,7 @@ class BackendController extends Controller
 	}
 	
 	/**
+	 * url '/admin/addCat'
 	 * 
 	 * @param Request $request
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -161,6 +163,13 @@ class BackendController extends Controller
 		return $this->render('MiniCMSBundle:Backend:addCategory.html.twig', array('form' => $form->createView()));
 	}
 	
+	/**
+	 * url '/admin/versions/{slug}'
+	 * 
+	 * @param string $slug
+	 * @throws NotFoundHttpException
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
 	public function listVersionsAction($slug)
 	{
 		if($this->container->getParameter('page_versioning') == false)
@@ -173,6 +182,14 @@ class BackendController extends Controller
 		return $this->render('MiniCMSBundle:Backend:listVersions.html.twig', array('versions' =>$versions));
 	}
 	
+	/**
+	 * url '/admin/view/{id}'
+	 * 
+	 * @param Request $request
+	 * @param int $id
+	 * @throws NotFoundHttpException
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 */
 	public function viewVersionAction(Request $request, $id)
 	{
 		if($this->container->getParameter('page_versioning' == false))
@@ -200,6 +217,11 @@ class BackendController extends Controller
 		return $this->render('MiniCMSBundle:Backend:viewVersion.html.twig', array('version' => $version));
 	}
 	
+	/**
+	 * Control that there is only one homepage
+	 * 
+	 * @param EntityManager $em
+	 */
 	public function checkHomepage($em)
 	{
 		$pageHome = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('homepage' => true));
