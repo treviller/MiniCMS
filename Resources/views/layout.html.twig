@@ -20,7 +20,7 @@
                         	<li><a href="{{ path('mini_cms_backend_home') }}">Administration</a></li>
                         	{% endif %}
                         {% endblock navlink %}
-                        	<li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
+                        	<li><a href="{{ path('logout') }}">Log out</a></li>
                         </ul>
                    </li>
                    {% else %}
@@ -28,7 +28,7 @@
                    		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 	        <span class="glyphicon glyphicon-user"></span> Not connected <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-      	                  <li><a href="{{ path('fos_user_security_login') }}">Log in</a></li>
+      	                  <li><a href="{{ path('login') }}">Log in</a></li>
                         </ul>
                    </li>        
                    {% endif %}

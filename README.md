@@ -14,7 +14,6 @@ Requirements
 ============
 
 - Symfony 3.x
-- [FOSUserBundle](https://packagist.org/packages/friendsofsymfony/user-bundle) dev-master
 - [Doctrine-extensions-bundle](https://packagist.org/packages/stof/doctrine-extensions-bundle) 1.2.x
 
 Installation
@@ -57,7 +56,7 @@ class AppKernel extends Kernel
 Step 3: Install Required Bundles
 --------------------------------
 
-First, you need to add these bundles to the list of registered bundles in 'AppKernel.php' in your project :
+First, you need to add this bundle to the list of registered bundles in 'AppKernel.php' in your project :
 
 ```php
 class AppKernel extends Kernel
@@ -68,7 +67,6 @@ class AppKernel extends Kernel
             // ...
 
          new StofDoctrineExtensionsBundle(),
-        	new FOS\UserBundle\FOSUserBundle(),
         );
 
         // ...
@@ -78,15 +76,10 @@ class AppKernel extends Kernel
 }
 ```
 
-Then, you need to configure them. For this, you just have to add at least 
+Then, you need to configure it. For this, you just have to add at least 
 these lines at the end of the file "app/config/config.yml" in your project :
 
 ```yaml
-
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: MiniCMSBundle\Entity\User
     
 stof_doctrine_extensions:
     orm:
@@ -104,13 +97,6 @@ You need to add some routes in the file "app/config/routing.yml" in your project
 minicms:
     resource: "@MiniCMSBundle/Resources/config/routing.yml"
     prefix: /
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-    
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
     
 ```
 
@@ -124,28 +110,12 @@ Use this command to create tables in this base :
 $ php bin/console doctrine:schema:update --force
 ```
 
-Step 6: Add an administrator
-----------------------------
-
-You have to create a user with admin role, to access backend functions of MiniCMSBundle.
-
-Use this command to create an user :
-
-```console
-$ php bin/console fos:user:create name mail password
-```
-
-And then grant it some access :
-
-```console
-$ php bin/console fos:user:promote name ROLE_ADMIN
-```
 The MiniCMSBundle is now ready to use ! 
 
 Configuration
 =============
 
-Some parameters can be configurated. See [config.rst]() file for more information.
+Some parameters can be configurated. See [config.rst](https://github.com/treviller/MiniCMS/blob/master/Resources/doc/config.rst) file for more information.
 
 License
 =======

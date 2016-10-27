@@ -28,12 +28,17 @@ mini_cms_backend_delete:
     defaults:
         _controller: MiniCMSBundle:Backend:delete
         
-mini_cms_backend_addCategory:
+mini_cms_backend_add_category:
     path: /admin/addCat
     defaults:
         _controller: MiniCMSBundle:Backend:addCategory
-        
-fos_user_profile_show:
-    path: /
+
+mini_cms_backend_list_versions:
+    path: /admin/versions/{slug}
     defaults:
-        _controller: MiniCMSBundle:Frontend:home
+        _controller: MiniCMSBundle:Backend:listVersions
+        
+mini_cms_backend_view_version:
+    path: /admin/view/{id}
+    defaults:
+        _controller: MiniCMSBundle:Backend:viewVersion

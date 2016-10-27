@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block form %}
+		{% if versioning %}
+		<a href="{{ path('mini_cms_backend_list_versions', {'slug': page.slug}) }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-time"></i>
+			Back to another version
+		</a>
+		{% endif %}
 	    <a href="{{ path('mini_cms_backend_delete', {'slug': page.slug}) }}" class="btn btn-danger">
 	    	<i class="glyphicon glyphicon-trash"></i>
 	    	Delete

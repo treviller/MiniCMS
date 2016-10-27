@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use MiniCMSBundle\Entity\Category;
+use MiniCMSBundle\Entity\Version;
 
 /**
  * Controller for backend part of the bundle
@@ -91,7 +92,11 @@ class BackendController extends Controller
 			{
 				$this->checkHomepage($em);
 			}
-				
+			
+			if($this->container->getParameter('page_versioning'))
+			{
+				$page->updateVersion();
+			}
 			$em->persist($page);
 			$em->flush();
 				
@@ -99,7 +104,7 @@ class BackendController extends Controller
 			return $this->redirectToRoute('mini_cms_backend_home');
 		}
 		
-		return $this->render('MiniCMSBundle:Backend:edit.html.twig', array('page' => $page, 'form' => $form->createView()));
+		return $this->render('MiniCMSBundle:Backend:edit.html.twig', array('page' => $page, 'form' => $form->createView(), 'versioning' => $this->container->getParameter('page_versioning')));
 	}
 	
 	/**
@@ -154,6 +159,45 @@ class BackendController extends Controller
 		}
 		
 		return $this->render('MiniCMSBundle:Backend:addCategory.html.twig', array('form' => $form->createView()));
+	}
+	
+	public function listVersionsAction($slug)
+	{
+		if($this->container->getParameter('page_versioning') == false)
+			throw new NotFoundHttpException('Versioning isn\'t enabled');
+		
+		$em = $this->getDoctrine()->getManager();
+
+		$versions = $em->getRepository('MiniCMSBundle:Version')->findBySlug($slug);
+		
+		return $this->render('MiniCMSBundle:Backend:listVersions.html.twig', array('versions' =>$versions));
+	}
+	
+	public function viewVersionAction(Request $request, $id)
+	{
+		if($this->container->getParameter('page_versioning' == false))
+			throw new NotFoundHttpException('Versioning isn\'t enabled');
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$version = $em->getRepository('MiniCMSBundle:Version')->findOneByWithPage($id);
+		
+		if($request->isMethod('post'))
+		{
+			$page = $version->getPage();
+			
+			$page->setTitle($version->getTitle());
+			$page->setContent($version->getContent());
+			
+			$em->persist($page);
+			$em->flush();
+			
+			$request->getSession()->getFlashBag()->add('info', 'Version successfully changed.');
+			
+			return $this->redirectToRoute('mini_cms_backend_home');
+		}
+		
+		return $this->render('MiniCMSBundle:Backend:viewVersion.html.twig', array('version' => $version));
 	}
 	
 	public function checkHomepage($em)

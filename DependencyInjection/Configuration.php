@@ -27,6 +27,10 @@ class Configuration implements ConfigurationInterface
 					->values(array('public', 'member', 'admin'))
 				->end()
 			->end()
+			->children()
+				->booleanNode('versioning')
+					->defaultValue(false)
+			->end()
 		;
 		
 		return $treeBuilder;

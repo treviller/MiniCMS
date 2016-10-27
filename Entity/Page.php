@@ -3,6 +3,7 @@ namespace MiniCMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use MiniCMSBundle\MiniCMSBundle;
 
 /**
  * This class represents page entities in database
@@ -76,9 +77,21 @@ class Page
 	 */
 	private $access;
 	
+	/**
+	 * 
+	 * @ORM\OneToMany(targetEntity="MiniCMSBundle\Entity\Version", mappedBy="page", cascade={"persist", "remove"})
+	 */
+	private $versions;
+	
+	
 	const ACCESS_PUBLIC = 0;
 	const ACCESS_MEMBER = 1;
 	const ACCESS_ADMIN = 2;
+	
+	public function __construct()
+	{
+		$this->versions = array();
+	}
 	
 	/**
 	 * @ORM\PrePersist()
@@ -89,11 +102,54 @@ class Page
 	}
 	
 	/**
+	 * @ORM\PrePersist()
 	 * @ORM\PreUpdate()
 	 */
 	public function updateDate()
 	{
 		$this->setDateUpdate(new \Datetime());
+	}
+	
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function updateVersion()
+	{
+		$version = new Version();
+		
+		$version->setContent($this->getContent());
+		$version->setTitle($this->getTitle());
+		$version->setDateUpdate(new \Datetime());
+		$version->setPage($this);
+		
+		$this->addVersion($version);
+	}
+	
+	/**
+	 * 
+	 * @param array $versions
+	 */
+	public function setVersions($versions)
+	{
+		$this->versions = $versions;
+	}
+	
+	/**
+	 * 
+	 * @return array
+	 */
+	public function getVersions()
+	{
+		return $this->versions;
+	}
+	
+	/**
+	 * 
+	 * @param MiniCMSBundle\Entity\Version $version
+	 */
+	public function addVersion($version)
+	{
+		$this->versions[]= $version;
 	}
 	
 	public function setAccess($access)

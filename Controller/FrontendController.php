@@ -55,7 +55,7 @@ class FrontendController extends Controller
 			break;
 			case Page::ACCESS_MEMBER:
 				if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
-					return $this->redirectToRoute('fos_user_security_login');
+					return $this->redirectToRoute('login');
 			break;
 		}
 		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));

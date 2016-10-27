@@ -20,6 +20,8 @@ class MiniCMSExtension extends Extension
 			$container->setParameter('default_access_level', 1);
 		else
 			$container->setParameter('default_access_level', 0);
+		
+		$container->setParameter('page_versioning', $config['versioning']);
 
 		$loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 

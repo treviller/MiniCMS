@@ -1,0 +1,21 @@
+{% extends 'MiniCMSBundle:Backend:layout.html.twig' %}
+
+{% block title %}
+	List of versions - {{ parent() }}
+{% endblock %}
+
+{% block body %}	
+	{{ parent() }}
+	<h1>Versions of "{{ versions.0.page.title }}" :</h1>
+	<ul class="list-group">
+		{% for version in versions %}
+		<li class="list-group-item">
+			<a href="{{ path('mini_cms_backend_view_version', {'id': version.id}) }}">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+		        {{ version.title}}
+			</a>
+			, date of this version : {{ version.dateUpdate|date('m/d/Y h:i')}}
+		</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
