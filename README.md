@@ -30,6 +30,11 @@ following command to download the latest stable version of this bundle:
 $ composer require treviller/mini-cms-bundle "~1"
 ```
 
+Then, you needs to copy assets into your web folder:
+```console
+$ php bin/console assets:install
+```
+
 Step 2: Enable the Bundle
 -------------------------
 

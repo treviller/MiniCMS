@@ -8,7 +8,7 @@
 	"support" : {
 		"email" : "tanguy.reviller@gmail.com"
 	},
-	"name" : "treviller/mini-cms-bundle",
+	"name" : "mini-cms/mini-cms-bundle",
 	"type" : "symfony-bundle",
 	"homepage" : "https://github.com/treviller/MiniCMS",
 	"license" : "MIT",
@@ -17,7 +17,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"treviller\\MiniCMSBundle\\" : ""
+			"MiniCMS\\MiniCMSBundle\\" : ""
 		}
 	},
 	"description" : "Provides a simple CMS-like system",
