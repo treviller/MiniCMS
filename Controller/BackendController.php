@@ -46,6 +46,7 @@ class BackendController extends Controller
 		
 		if($request->isMethod("post") && $form->handleRequest($request)->isValid())
 		{
+			
 			$em = $this->getDoctrine()->getManager();
 			
 			if($page->getHomepage() == true)
@@ -91,7 +92,7 @@ class BackendController extends Controller
 		{
 			if($page->getHomepage() == true)
 			{
-				$this->checkHomepage($em);
+				$this->checkHomepage($page);
 			}
 			
 			if($this->container->getParameter('page_versioning'))
@@ -222,11 +223,12 @@ class BackendController extends Controller
 	 * 
 	 * @param EntityManager $em
 	 */
-	public function checkHomepage($em)
+	protected function checkHomepage($page)
 	{
+		$em = $this->getDoctrine()->getManager();
 		$pageHome = $em->getRepository('MiniCMSBundle:Page')->findOneBy(array('homepage' => true));
 		
-		if($pageHome !== null)
+		if($pageHome !== null && $pageHome !== $page)
 		{
 			$pageHome->setHomepage(false);
 			$em->persist($pageHome);

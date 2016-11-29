@@ -38,7 +38,7 @@ class PageType extends AbstractType
 												'choices' => array('Public' => Page::ACCESS_PUBLIC, 
 																'Members only' => Page::ACCESS_MEMBER, 
 																'Administrators only' => Page::ACCESS_ADMIN)))
-		->add('content', TextareaType::class)
+		->add('content', TextareaType::class, array('required' => false))
 		->add('homepage', CheckboxType::class, array('required' => false))
 		->add('save', SubmitType::class);
 	}

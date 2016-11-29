@@ -19,6 +19,7 @@
 			</a>
 			created on {{ page.dateCreation|date('m/d/Y h:i')}}, last update : {{ page.dateUpdate|date('m/d/Y h:i') }}
 			in {{ page.category.name }}
+			<a href="{{ path('mini_cms_frontend_view', {'category': page.category.name, 'slug': page.slug}) }}" class="pull-right">View in frontend</a>
 		</li>
 		{% endfor %}
 	</ul>

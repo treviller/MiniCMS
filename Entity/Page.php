@@ -4,6 +4,7 @@ namespace MiniCMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use MiniCMSBundle\MiniCMSBundle;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This class represents page entities in database
@@ -34,7 +35,7 @@ class Page
 
 	/**
 	 * @var string
-	 *
+	 * @Assert\NotBlank()
 	 * @ORM\Column(name="contenu", type="text")
 	 */
 	private $content;

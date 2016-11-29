@@ -45,7 +45,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
 
-            new treviller\MiniCMSBundle\MiniCMSBundle(),
+            new MiniCMSBundle\MiniCMSBundle(),
         );
 
         // ...
@@ -77,7 +77,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
 
-         new StofDoctrineExtensionsBundle(),
+         new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         // ...
