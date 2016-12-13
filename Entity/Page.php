@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use MiniCMSBundle\MiniCMSBundle;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * This class represents page entities in database
@@ -96,6 +97,19 @@ class Page
 	public function __construct()
 	{
 		$this->versions = array();
+	}
+	
+	/**
+	 * @Assert\Callback()
+	 */
+	public function homepageCheck(ExecutionContextInterface $context, $payload)
+	{
+		if($this->getHomepage() === true && $this->getAccess() !== 0)
+		{
+			$context->buildViolation('La page d\'accueil ne peut pas être restreinte aux membres ou aux administrateurs.')
+			->atPath('homepage')
+			->addViolation();
+		}
 	}
 	
 	/**

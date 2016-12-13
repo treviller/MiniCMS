@@ -1,0 +1,10 @@
+mini_cms_logging_login:
+    path: /login
+    defaults:
+        _controller: MiniCMSBundle:Users:login
+
+mini_cms_logging_register:
+    path: /register
+    defaults:
+        _controller: MiniCMSBundle:Users:register
+    

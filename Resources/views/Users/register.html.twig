@@ -1,0 +1,21 @@
+{% extends 'MiniCMSBundle::layout.html.twig' %}
+
+{% block title %}
+	Register - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	{% for key, messages in app.session.flashbag.all() %}
+		{% for message in messages %}
+			<div class="alert alert-{{ key }}">
+		    {{ message }}
+		    </div>
+		{% endfor %}
+	{% endfor %}
+	
+	<div class="well">
+		{{ form(form) }}
+	</div>
+	
+{% endblock %}

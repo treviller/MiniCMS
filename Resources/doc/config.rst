@@ -13,7 +13,7 @@ You can change the default access level of your created pages :
 
 	# app/config/config.yml
 	mini_cms:
-    	default_access_level: public
+        default_access_level: public
     
 
 Values : public / member / admin
