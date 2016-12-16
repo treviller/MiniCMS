@@ -47,7 +47,7 @@ class UsersController extends Controller
 			$em->flush();
 			
 			$request->getSession()->getFlashbag()->add('info', 'You are successfully registered.');
-			return $this->redirectToRoute('mini_cms_logging_login');
+			return $this->redirectToRoute('login');
 		}
 		return $this->render('MiniCMSBundle:Users:register.html.twig', array('form' => $form->createView()));
 	}

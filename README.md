@@ -11,14 +11,17 @@ Features include:
 - Page versioning
 - Customizable access levels on different pages
 
+
 Requirements
 ============
 
 - Symfony 3.x
 - [Doctrine-extensions-bundle](https://packagist.org/packages/stof/doctrine-extensions-bundle) 1.2.x
 
+
 Installation
 ============
+
 
 Step 1: Download the Bundle
 ---------------------------
@@ -55,6 +58,7 @@ class AppKernel extends Kernel
 }
 ```
 
+
 Step3: Install assets
 ---------------------
 
@@ -63,6 +67,7 @@ Then, you needs to copy assets into your web folder:
 ```console
 $ php bin/console assets:install
 ```
+
 
 Step 4: Install StofDoctrineExtensionsBundle
 --------------------------------------------
@@ -99,10 +104,11 @@ stof_doctrine_extensions:
 
 ```
 
+
 Step 5: Routing
 ---------------
 
-You need to add this route in the file "app/config/routing.yml" in your project:
+You need to add at least this route in the file "app/config/routing.yml" of your project:
 
 ```yaml
 minicms:
@@ -111,24 +117,39 @@ minicms:
     
 ```
 
-You need also to define the routes "login" and "logout" with your personal login and logout pages to let the bundle work.
+
+Step 6: Logging
+---------------
+
+The MiniCMSBundle implements a very simple logging system. If you want to use it, you just have to need to add this route in "app/config/routing.yml" :
 
 Example:
 
 ```yaml
-login:
-    path: /login
-    defaults:
-        _controller: Bundle:Controller:login
-
-logout:
-    path: /logout
-    defaults:
-        _controller: Bundle:Controller:logout 
+logging:
+    resource: "@MiniCMSBundle/Resources/config/logging.yml"
+    prefix: /
     
 ```
 
-Step 6: Security
+With this system, the only way to register a new administrator is to use this command in your console :
+
+```console
+$ php bin/console minicms:create-user username password email
+```
+
+Username, password, and email are required arguments.
+
+However you can also use your own logging system, but it must declare at least three routes :
+
+- register
+- login
+- logout
+
+That's the only requirement to override MiniCMSBundle logging system.
+
+
+Step 7: Security
 ----------------
 
 If you want to correctly enable logging, you just have to add these lines in "app/config/security.yml" :
@@ -140,7 +161,8 @@ If you want to correctly enable logging, you just have to add these lines in "ap
 
 All the rest of this file can be customizable as you want.
 
-Step 7: Configure database
+
+Step 8: Configure database
 --------------------------
 Create a database and edit "database_name" in the file "app/config/parameters.yml"
 
@@ -152,15 +174,18 @@ $ php bin/console doctrine:schema:update --force
 
 The MiniCMSBundle is now ready to use ! 
 
+
 Configuration
 =============
 
 Some parameters can be configurated. See [config.rst](https://github.com/treviller/MiniCMS/blob/master/Resources/doc/config.rst) file for more information.
 
+
 License
 =======
 
 This bundle is under the MIT license. See the complete license in the bundle.
+
 
 About
 =====
