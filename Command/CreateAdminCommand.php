@@ -22,12 +22,13 @@ class CreateAdminCommand extends ContainerAwareCommand
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$em = $this->getContainer()->get('doctrine.orm.entity_manager');
+		$encoder = $this->getContainer()->get('security.password_encoder');
 		
 		$adminUser = new User();
 		
 		$adminUser->setEmail($input->getArgument('email'));
 		$adminUser->setUsername($input->getArgument('username'));
-		$adminUser->setPassword($input->getArgument('password'));
+		$adminUser->setPassword($encoder->encodePassword($adminUser, $input->getArgument('password')));
 		$adminUser->setSalt('');
 		$adminUser->setRoles(array('ROLE_ADMIN'));
 		

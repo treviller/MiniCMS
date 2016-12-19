@@ -33,6 +33,21 @@
                    </li>        
                    {% endif %}
                    {% block navigation %}
+                   {% if app.request.requestUri != path('login') and app.request.requestUri != path('register')  %}
+                   <li class="dropdown">
+                   		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   			Liste des pages <b class="caret"></b>
+                   		</a>
+                   		<ul class="dropdown-menu">
+                       {% for page in pages %}
+                   			<li><a href="{{ path('mini_cms_frontend_view', { 'category': page.category.name, 'slug': page.slug }) }}">{{ page.title }}</a></li>
+                       {% endfor %}
+                   		</ul>
+                   	</li>
+                   	{% else %}
+                   	<li><a href="{{ path('mini_cms_frontend_home') }}">Back to homepage</a></li>
+                   	{% endif %}
+
                     	{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 						<li><a href="{{ path('register') }}">Register</a></li>
 						{% endif %}

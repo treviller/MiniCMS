@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use MiniCMSBundle\Entity\Page;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 /** 
  * Controller for frontend part of the bundle
@@ -20,11 +21,14 @@ class FrontendController extends Controller
 	 */
 	public function homeAction()
 	{
-		$page = $this->getDoctrine()->getManager()->getRepository('MiniCMSBundle:Page')->findOneBy(array('homepage' => true));
+		$repo = $this->getDoctrine()->getManager()->getRepository('MiniCMSBundle:Page');
+		$homepage = $repo->findOneBy(array('homepage' => true));
+		$pages = $repo->listPages();
 		
-		if($page === null)
-			return $this->render('MiniCMSBundle:Frontend:home.html.twig');
-		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));
+		if($homepage === null)
+			return $this->render('MiniCMSBundle:Frontend:home.html.twig', array('pages' => $pages));
+		
+		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('homepage' => $homepage, 'pages' => array()));
 	}
 	
 	 /**
@@ -34,7 +38,7 @@ class FrontendController extends Controller
 	  * @return \Symfony\Component\HttpFoundation\Response
 	  * @throws NotFoundHttpException
 	  */
-	public function viewAction($category, $slug)
+	public function viewAction(Request $request, $category, $slug)
 	{
 		$page = null;
 		
@@ -55,9 +59,16 @@ class FrontendController extends Controller
 			break;
 			case Page::ACCESS_MEMBER:
 				if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+				{
+					$request->getSession()->getFlashbag()->add('warning', 'You need to be logged to access to this page.');
 					return $this->redirectToRoute('login');
+				}
+					
 			break;
 		}
-		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('page' => $page));
+		
+		$pages = $em->getRepository('MiniCMSBundle:Page')->listPages();
+		
+		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('actualPage' => $page, 'pages' => $pages));
 	}
 }

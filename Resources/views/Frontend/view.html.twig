@@ -1,9 +1,9 @@
 {% extends 'MiniCMSBundle::layout.html.twig' %}
 
 {% block title %}
-	{{ page.title }} - {{ parent() }}
+	{{ actualPage.title }} - {{ parent() }}
 {% endblock %}
 
 {% block body %}			
-			{{ page.content|raw }}
+			{{ actualPage.content|raw }}
 {% endblock %}

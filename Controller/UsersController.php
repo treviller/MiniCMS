@@ -40,9 +40,11 @@ class UsersController extends Controller
 		if($request->isMethod('post') && $form->handleRequest($request)->isValid())
 		{
 			$em = $this->getDoctrine()->getManager();
+			$encoder = $this->get('security.password_encoder');
 			
 			$user->setSalt('');
 			$user->setRoles(array('ROLE_USER'));
+			$user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 			$em->persist($user);
 			$em->flush();
 			

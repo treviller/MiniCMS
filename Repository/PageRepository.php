@@ -47,4 +47,14 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 		
 		return $query->getQuery()->getArrayResult();
 	}
+	
+	public function listPages()
+	{
+		$query = $this->createQueryBuilder('p');
+		
+		$query->innerJoin('p.category', 'c')
+			->addSelect('c');
+		
+		return $query->getQuery()->getResult();
+	}
 }

@@ -193,7 +193,7 @@ class BackendController extends Controller
 	 */
 	public function viewVersionAction(Request $request, $id)
 	{
-		if($this->container->getParameter('page_versioning' == false))
+		if($this->container->getParameter('page_versioning') == false)
 			throw new NotFoundHttpException('Versioning isn\'t enabled');
 		
 		$em = $this->getDoctrine()->getManager();

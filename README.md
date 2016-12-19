@@ -152,14 +152,38 @@ That's the only requirement to override MiniCMSBundle logging system.
 Step 7: Security
 ----------------
 
-If you want to correctly enable logging, you just have to add these lines in "app/config/security.yml" :
+If you want to correctly enable logging, you have to add these lines in "app/config/security.yml" :
 
 ```yaml
-    access_control:
+    encoders:
+        MiniCMSBundle\Entity\User: bcrypt
+    
+   role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+    
+   providers:
+        user_provider:
+            entity:
+                class: MiniCMSBundle\Entity\User
+                property: username
+
+   firewalls:
+       main:
+           pattern: ^/
+           anonymous: true
+           provider: user_provider
+           form_login: 
+               login_path: login
+               check_path: login_check
+           logout:
+               path: logout
+               target: /
+               
+   access_control:
        - { path: ^/admin, roles: ROLE_ADMIN }
 ```
 
-All the rest of this file can be customizable as you want.
+You can of course, customize it, but it's the minimum configuration.
 
 
 Step 8: Configure database
