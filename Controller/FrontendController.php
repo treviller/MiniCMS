@@ -28,7 +28,7 @@ class FrontendController extends Controller
 		if($homepage === null)
 			return $this->render('MiniCMSBundle:Frontend:home.html.twig', array('pages' => $pages));
 		
-		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('homepage' => $homepage, 'pages' => array()));
+		return $this->render('MiniCMSBundle:Frontend:view.html.twig', array('actualPage' => $homepage, 'pages' => $pages));
 	}
 	
 	 /**
